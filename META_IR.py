@@ -9,15 +9,11 @@ Original file is located at
 
 import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import (
-    accuracy_score, f1_score, top_k_accuracy_score,
-    confusion_matrix, precision_score, recall_score
-)
+from sklearn.metrics import (accuracy_score, f1_score, precision_score, recall_score)
 import numpy as np
 import os
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.model_selection import LeaveOneOut
-import time
 
 import rpy2.robjects as robjects
 from rpy2.robjects.packages import importr, SignatureTranslatedAnonymousPackage
@@ -27,7 +23,6 @@ from rpy2.robjects import default_converter, pandas2ri
 from rpy2.robjects.conversion import Converter, localconverter
 import rpy2.robjects.numpy2ri
 import itertools as it
-import xgboost as xgb
 from glob import glob
 import smogn
 import resreg
@@ -37,15 +32,12 @@ from xgboost import XGBRegressor
 rpy2.robjects.numpy2ri.activate()
 pandas2ri.activate()
 
-# Other imports
-from sklearn.model_selection import train_test_split, RepeatedKFold, GridSearchCV
+from sklearn.model_selection import RepeatedKFold, GridSearchCV
 from sklearn.tree import DecisionTreeRegressor
-from sklearn.neighbors import KNeighborsClassifier
 from sklearn.neural_network import MLPRegressor
 from sklearn.svm import SVR
 from sklearn.ensemble import BaggingRegressor, RandomForestRegressor
 from sklearn.pipeline import Pipeline
-from sklearn.metrics import mean_squared_error, accuracy_score
 
 class META_IR():
 
@@ -64,6 +56,22 @@ class META_IR():
 
     Methods
     -------
+    meta_feature_extraction(self)
+        Extract Meta-features.
+    meta_target_definition(self)
+        Define meta-targets.
+    balance(self, train, strategy, c)
+        Data balancing.
+    install_rpackages
+        Install R packages
+    scores(y, y_test, y_pred)
+        Regression Evaluation
+    repeatedKfold(self, X, y, dataset, n_splits=10, n_repeats=2, random_state=42, pipeline=None, param_grid=None) :
+        Evaluation pipelines
+    pipe_generation(self)
+        Pipeline Generation
+    select_best(self, df)
+        Selects the best pipeline for the dataset
     evalutation(y_true, y_pred)
         Evaluate the performance of the model.
     train(x_train, y_train)

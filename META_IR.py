@@ -97,7 +97,7 @@ class META_IR():
 
       string = """
 
-      ecol <- function(data_sets){
+      ecol <- function(data_sets=data_sets){
 
         install.packages("devtools")
         install.packages("ECoL")

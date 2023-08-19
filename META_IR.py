@@ -85,9 +85,11 @@ class META_IR():
 
     def meta_feature_extraction(self):
 
+      data_sets = self.data_sets
+
       string = """
 
-      ecol <- function(){
+      ecol <- function(data_sets){
 
         install.packages("devtools")
         install.packages("ECoL")
@@ -98,7 +100,7 @@ class META_IR():
         library(UBL)
 
 
-        data_sets <- Sys.glob(file.path("/content/ds_time/*.csv"))
+        # data_sets <- Sys.glob(file.path("/content/ds_time/*.csv"))
         result_list <- list()  # Lista para armazenar os temp_df
 
 

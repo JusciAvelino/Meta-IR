@@ -36,7 +36,6 @@ from xgboost import XGBRegressor
 # Activate converters and filters
 rpy2.robjects.numpy2ri.activate()
 pandas2ri.activate()
-warnings.filterwarnings('ignore')
 
 # Other imports
 from sklearn.model_selection import train_test_split, RepeatedKFold, GridSearchCV

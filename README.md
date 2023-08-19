@@ -6,4 +6,8 @@ Meta-Learning for Imbalanced Regression (Meta-IR) is a recommendation system des
 
 ## How Meta-IR Works
 
-Meta-IR operates by analyzing the characteristics of a given dataset to determine the appropriate resampling strategy and learning algorithm.
+Meta-IR operates by analyzing the characteristics of a given dataset to determine the appropriate resampling strategy and learning algorithm. We propose two distinct formulations:
+
+1. **Independent Formulation:** In this approach, the meta-classifiers are trained separately to determine the best learning algorithm and the optimal resampling strategy for a given dataset.
+
+2. **Chained Formulation:** The chained approach involves a sequential procedure where the output of one meta-classifier serves as input for another.

@@ -10,6 +10,34 @@ This file contains:
 - **example.py** with an example of how execute Meta-IR
 - **data** with the 218 datasets.
 
+# Steps:
+**Load the Datasets:**
+Begin by loading the datasets that will be used in the meta-learning process.
+
+**Creating META_IR Instance:**
+Instantiate the META_IR class by assigning it to the variable meta_ir.
+
+**Install R Packages:**
+Call the method meta_ir.install_rpackages() to install the necessary R packages required for the subsequent steps.
+
+**Meta-Feature Extraction:**
+Extract meta-features from individual datasets using the meta_ir.meta_feature_extraction() method. The extracted features are stored in the variable m.
+
+**Meta Target Definition:**
+Define the goals of the meta-learning process using the meta_ir.meta_target_definition() method. These goals likely include information about learning algorithms and resampling strategies.
+
+**Data Concatenation:**
+Concatenate the meta_target DataFrame with the m DataFrame using pd.concat(). This adds the 'clf' column (representing learning algorithms) and the 'strategy' column (representing resampling strategies).
+
+**Independent Training Approach:**
+Apply the independent training approach using meta_ir.independent_training(m). This step involves using the extracted features and defined goals to train models.
+
+**Model-First Approach:**
+Apply the model-first approach using meta_ir.model_first(m). This approach likely focuses on training models before considering specific strategies.
+
+**Strategy-First Approach:**
+Apply the strategy-first approach using meta_ir.strategy_first(m). This approach likely prioritizes strategies over specific models.
+
 ## Dependencies:
 
 To run this project you will need the following dependencies:

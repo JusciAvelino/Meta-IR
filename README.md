@@ -7,7 +7,6 @@ Meta-Learning for Imbalanced Regression (Meta-IR) is a recommendation system des
 # Contents
 This file contains:
 - **META_IR.py** with the code implemented.
-- **example.py** with an example of how execute Meta-IR
 - **data** with the 218 datasets.
 
 # Steps:

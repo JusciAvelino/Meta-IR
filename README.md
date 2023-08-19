@@ -4,12 +4,12 @@
 
 Meta-Learning for Imbalanced Regression (Meta-IR) is a recommendation system designed to address imbalanced regression tasks. The goal of Meta-IR is to recommend suitable algorithms and techniques based on problem meta-features, which are used as input to the meta-classifier. The meta-classifier then suggests an optimal resampling strategy and learning algorithm, effectively creating a customized pipeline tailored to a new problem's meta-features.
 
-# Contents
+## Contents
 This file contains:
 - **META_IR.py** with the code implemented.
 - **data** with the 218 datasets.
 
-# Steps:
+## Steps:
 **Load the Datasets:**
 Begin by loading the datasets that will be used in the meta-learning process.
 

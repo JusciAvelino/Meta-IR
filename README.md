@@ -22,7 +22,6 @@ To run this project you will need the following dependencies:
 * smogn
 * resreg
 * ImbalancedLearningRegression
-* auto-sklearn
 * UBL (R Package)
 * IRon (R Package)
 * uba (R Package)

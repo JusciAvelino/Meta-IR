@@ -17,3 +17,20 @@ Meta-IR operates by analyzing the characteristics of a given dataset to determin
 1. **Independent Formulation:** In this approach, the meta-classifiers are trained separately to determine the best learning algorithm and the optimal resampling strategy for a given dataset.
 
 2. **Chained Formulation:** The chained approach involves a sequential procedure where the output of one meta-classifier serves as input for another.
+
+## Dependencies:
+
+To run this project you will need the following dependencies:
+
+* Python >= 3.6
+* pandas
+* numpy
+* scikit-learn
+* rpy2
+* smogn
+* resreg
+* ImbalancedLearningRegression
+* UBL (R Package)
+* IRon (R Package)
+* uba (R Package)
+

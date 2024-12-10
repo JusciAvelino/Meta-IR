@@ -9,64 +9,81 @@ This file contains:
 - **META_IR.py** with the code implemented.
 - **data** with the 218 datasets.
 
-## Steps:
-**Load the Datasets:**
-Begin by loading the datasets that will be used in the meta-learning process.
-
-**Creating META_IR Instance:**
-Instantiate the META_IR class by assigning it to the variable meta_ir.
+## Example:
 
 ```python
-meta_ir = META_IR(data_sets)
-```
+def run_full_meta_ir_pipeline(folder_path):
+    """
+    Executes the full META_IR pipeline, including concatenation of meta-targets
+    and applying independent training, model-first, and strategy-first evaluations.
 
-**Install R Packages:**
-Call the method meta_ir.install_rpackages() to install the necessary R packages required for the subsequent steps.
+    Args:
+        folder_path (str): Path to the folder containing the datasets.
+    """
+    # Load datasets from the folder
+    print(f"Loading datasets from folder: {folder_path}")
+    data_sets = [os.path.join(folder_path, file) for file in os.listdir(folder_path) if file.endswith('.csv')]
+    if not data_sets:
+        raise ValueError("No CSV files found in the specified folder.")
 
-```python
-meta_ir.install_rpackages()
-```
+    # Instantiate the META_IR class
+    meta_ir = META_IR(data_sets=data_sets)
 
-**Meta-Feature Extraction:**
-Extract meta-features from individual datasets using the meta_ir.meta_feature_extraction() method. The extracted features are stored in the variable m.
+    #Installs the required R packages for the META_IR pipeline.
+    print("Installing R packages...")
+    meta_ir.install_rpackages()
+    print("R packages installed successfully.")
 
-```python
-m = meta_ir.meta_feature_extraction()
-```
+    # Extract meta-features
+    print("Extracting meta-features...")
+    meta_features = meta_ir.meta_feature_extraction()
 
-**Meta Target Definition:**
-Define the goals of the meta-learning process using the meta_ir.meta_target_definition() method. These goals likely include information about learning algorithms and resampling strategies.
+    # Define meta-targets
+    print("Defining meta-targets...")
+    meta_target = meta_ir.meta_target_definition()
 
-```python
-meta_target = meta_ir.meta_target_definition()
-```
+    sera_meta_target = meta_target[meta_target['metric'] == 'sera']
+    f1_meta_target = meta_target[meta_target['metric'] == 'f1score']
 
-**Data Concatenation:**
-Concatenate the meta_target DataFrame with the m DataFrame using pd.concat(). This adds the 'clf' column (representing learning algorithms) and the 'strategy' column (representing resampling strategies).
+    print("Concatenating meta-targets with meta-features...")
 
-```python
-m = pd.concat([meta_target[['clf', 'strategy']], m], axis=1)
-```
+    m_sera = pd.concat(
+    [sera_meta_target[['dataset', 'model', 'strategy']].reset_index(drop=True),
+     meta_features.reset_index(drop=True)],
+    axis=1
+    )
 
-**Independent Training Approach:**
-Apply the independent training approach using meta_ir.independent_training(m). This step involves using the extracted features and defined goals to train models.
+    m_f1 = pd.concat(
+    [f1_meta_target[['dataset', 'model', 'strategy']].reset_index(drop=True),
+     meta_features.reset_index(drop=True)],
+    axis=1
+    )
 
-```python
-df_independent_training = meta_ir.independent_training(m)
-```
+    # Run independent training
+    print("Running independent training...")
+    df_independent_training = meta_ir.independent_training(m_sera)
+    print("Independent training results:")
+    print(df_independent_training)
 
-**Model-First Approach:**
-Apply the model-first approach using meta_ir.model_first(m). This approach likely focuses on training models before considering specific strategies.
+    # Run model-first evaluation
+    print("Running model-first evaluation...")
+    df_model_first = meta_ir.model_first(m_sera)
+    print("Model-first evaluation results:")
+    print(df_model_first)
 
-```python
-df_model_first = meta_ir.model_first(m)
-```
+    # Run strategy-first evaluation
+    print("Running strategy-first evaluation...")
+    df_strategy_first = meta_ir.strategy_first(m_sera)
+    print("Strategy-first evaluation results:")
+    print(df_strategy_first)
 
-**Strategy-First Approach:**
-Apply the strategy-first approach using meta_ir.strategy_first(m). This approach likely prioritizes strategies over specific models.
+    print("META_IR pipeline execution completed.")
 
-```python
-df_strategy_first = meta_ir.strategy_first(m)
+# Path to the folder containing datasets
+folder_path = "/content/drive/MyDrive/Colab Notebooks/ds_30"  # Replace with your folder path
+
+# Execute the full pipeline
+run_full_meta_ir_pipeline(folder_path)
 ```
 
 ## Dependencies:
